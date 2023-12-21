@@ -1,0 +1,21 @@
++ Right Click Event --> tile
+
+    + Change tile background color to yellow 
+
+    + Cannot press left click the tile if it's marked
+
++ Left Click Event --> tile 
+
+    + Check status of the tile --> hidden/number/mine
+
+    + If the tile status is hidden 
+
+        --> Revealing adjacent tiles 
+
+    + If the tile status is number 
+
+        --> Show number of the tile
+
+    + If the tile status is mine
+
+        --> Show all the mine and let user know it lose
