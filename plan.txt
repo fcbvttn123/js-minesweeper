@@ -19,3 +19,5 @@
     + If the tile status is mine
 
         --> Show all the mine and let user know it lose
+
++ Set up number value for tile

@@ -3,7 +3,7 @@ let boardDOM = document.querySelector(".board")
 let subtextDOM = document.querySelector(".subtext")
 
 // My variables
-let tileValue = ["mine", "empty", "number"]
+let tileValue = ["mine", "number"]
 let gridSize = 10
 
 // Hard code the value of board size
@@ -86,9 +86,7 @@ function checkTileValue(tile) {
         processMineTile()
     } else if(tile.dataset.value == tileValue[1]) {
         console.log("tile is empty")
-    } else {
-        console.log("tile has number")
-    }
+    } 
 }
 
 
