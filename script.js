@@ -85,7 +85,7 @@ function checkTileValue(tile) {
     if(tile.dataset.value == tileValue[0]) {
         processMineTile()
     } else if(tile.dataset.value == tileValue[1]) {
-        console.log("tile has number")
+        processNumberTile(tile)
     } 
 }
 
@@ -99,6 +99,19 @@ function processMineTile() {
         tile.dataset.value == tileValue[0] && tileStatusSetup(tile, "mine")
     })
     lost = true
+}
+
+
+
+
+// Function: process tile with number status 
+function processNumberTile(tile) {
+    if(parseInt(tile.dataset.valueNumber) > 0) {
+        tileStatusSetup(tile, "number")
+        tile.textContent = tile.dataset.valueNumber
+    } else {
+        console.log("not having number")
+    }
 }
 
 
