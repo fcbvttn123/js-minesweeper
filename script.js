@@ -43,7 +43,6 @@ function boardSetUp() {
                 if(e.target.dataset.status == "marked" || lost) {
                     return 
                 } else {
-                    console.log("Adjacent tiles: ", getAdjacentTiles(e.target.dataset.col, e.target.dataset.row))
                     checkTileValue(e.target)
                 }
             })
@@ -109,9 +108,12 @@ function processMineTile() {
 function setupTileNumberValue() {
     document.querySelectorAll(".board div").forEach(tile => {
         if(tile.dataset.value == "number") {
-            // let adjacentTiles = getAdjacentTiles(tile.dataset.col, tile.dataset.row)
-            // console.log(`Tile position: ${tile.dataset.col}, ${tile.dataset.row}`)
-            // console.log(adjacentTiles)
+            // Get adjacent tiles
+            let adjacentTiles = getAdjacentTiles(tile.dataset.col, tile.dataset.row)
+            // Check mine number
+            let mineNumber = 0
+            adjacentTiles.forEach(adjacentTile => adjacentTile.dataset.value == "mine" && ++mineNumber)
+            tile.dataset.valueNumber = mineNumber
         }
     })
 }
@@ -121,6 +123,9 @@ function setupTileNumberValue() {
 
 // Function: get adjacent tiles
 function getAdjacentTiles(col, row) {
+    // Convert col and row to number
+    col = parseInt(col)
+    row = parseInt(row)
     // Get all tiles
     let tiles = document.querySelectorAll(".board div")
     // Create adjacent tile array
