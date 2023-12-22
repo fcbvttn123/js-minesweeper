@@ -19,6 +19,8 @@ boardSetUp()
 
 tileStatusSetup([...document.querySelectorAll(".board div")], "hidden")
 
+setupTileNumberValue()
+
 
 
 // Function: board setup 
@@ -102,8 +104,28 @@ function processMineTile() {
 
 
 
+// Function: set up number of mines surrounding a tile
+function setupTileNumberValue() {
+    document.querySelectorAll(".board div").forEach(tile => {
+        if(tile.dataset.value == "number") {
+            // Get adjacent tiles
+            let adjacentTiles = getAdjacentTiles(tile.dataset.col, tile.dataset.row)
+            // Check mine number
+            let mineNumber = 0
+            adjacentTiles.forEach(adjacentTile => adjacentTile.dataset.value == "mine" && ++mineNumber)
+            tile.dataset.valueNumber = mineNumber
+        }
+    })
+}
+
+
+
+
 // Function: get adjacent tiles
 function getAdjacentTiles(col, row) {
+    // Convert col and row to number
+    col = parseInt(col)
+    row = parseInt(row)
     // Get all tiles
     let tiles = document.querySelectorAll(".board div")
     // Create adjacent tile array
