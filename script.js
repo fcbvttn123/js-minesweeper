@@ -5,6 +5,7 @@ let subtextDOM = document.querySelector(".subtext")
 // My variables
 let tileValue = ["mine", "number"]
 let gridSize = 10
+let lost = false
 
 // Hard code the value of board size
 document.documentElement.style.setProperty("--size", gridSize)
@@ -37,7 +38,7 @@ function boardSetUp() {
             })
             // Left Click Event
             tile.addEventListener("click" , e => {
-                if(e.target.dataset.status == "marked") {
+                if(e.target.dataset.status == "marked" || lost) {
                     return 
                 } else {
                     checkTileValue(e.target)
@@ -79,13 +80,10 @@ function tileMarkedYellow(e) {
 
 // Function: check tile value
 function checkTileValue(tile) {
-    console.log("Adjacent tiles: ")
-    console.log(getAdjacentTiles(parseInt(tile.dataset.col), parseInt(tile.dataset.row)))
-    
     if(tile.dataset.value == tileValue[0]) {
         processMineTile()
     } else if(tile.dataset.value == tileValue[1]) {
-        console.log("tile is empty")
+        console.log("tile has number")
     } 
 }
 
@@ -98,6 +96,7 @@ function processMineTile() {
     document.querySelectorAll(".board div").forEach(tile => {
         tile.dataset.value == tileValue[0] && tileStatusSetup(tile, "mine")
     })
+    lost = true
 }
 
 

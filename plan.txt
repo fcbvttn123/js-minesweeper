@@ -21,3 +21,7 @@
         --> Show all the mine and let user know it lose
 
 + Set up number value for tile
+
+    + Loop through every tile
+
+    + Check adjacent tiles 
