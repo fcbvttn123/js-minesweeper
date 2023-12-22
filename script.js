@@ -19,6 +19,8 @@ boardSetUp()
 
 tileStatusSetup([...document.querySelectorAll(".board div")], "hidden")
 
+setupTileNumberValue()
+
 
 
 // Function: board setup 
@@ -41,6 +43,7 @@ function boardSetUp() {
                 if(e.target.dataset.status == "marked" || lost) {
                     return 
                 } else {
+                    console.log("Adjacent tiles: ", getAdjacentTiles(e.target.dataset.col, e.target.dataset.row))
                     checkTileValue(e.target)
                 }
             })
@@ -97,6 +100,20 @@ function processMineTile() {
         tile.dataset.value == tileValue[0] && tileStatusSetup(tile, "mine")
     })
     lost = true
+}
+
+
+
+
+// Function: set up number of mines surrounding a tile
+function setupTileNumberValue() {
+    document.querySelectorAll(".board div").forEach(tile => {
+        if(tile.dataset.value == "number") {
+            // let adjacentTiles = getAdjacentTiles(tile.dataset.col, tile.dataset.row)
+            // console.log(`Tile position: ${tile.dataset.col}, ${tile.dataset.row}`)
+            // console.log(adjacentTiles)
+        }
+    })
 }
 
 
