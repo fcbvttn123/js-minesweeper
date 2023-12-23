@@ -25,3 +25,13 @@
     + Loop through every tile
 
     + Check adjacent tiles 
+
++ Empty Space Expansion 
+
+    + Get tile 
+
+    + Get adjacent tiles
+
+    + Loop through adjacent tiles
+
+        + if the tile is empty --> run again

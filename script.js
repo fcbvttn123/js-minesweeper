@@ -109,12 +109,30 @@ function processMineTile() {
 
 // Function: process tile with number status 
 function processNumberTile(tile) {
-    if(parseInt(tile.dataset.valueNumber) > 0) {
-        tileStatusSetup(tile, "number")
-        tile.textContent = tile.dataset.valueNumber
-    } else {
-        console.log("not having number")
-    }
+    tileStatusSetup(tile, "number")
+    parseInt(tile.dataset.valueNumber) > 0 ? tile.textContent = tile.dataset.valueNumber : emptySpaceExpansion(tile.dataset.col, tile.dataset.row)
+}
+
+
+
+
+// Function: show all adjacent tiles when user clicked the tile without any mines surrounding it  
+function emptySpaceExpansion(col, row) {
+    // Convert col and row to number
+    col = parseInt(col)
+    row = parseInt(row)
+    // Above
+    document.querySelectorAll(".board div").forEach(aboveTile => {
+        if(aboveTile.dataset.col == col && aboveTile.dataset.row == row-1) {
+            if(aboveTile.dataset.valueNumber == 0) {
+                tileStatusSetup(aboveTile, "number")
+                emptySpaceExpansion(aboveTile.dataset.col, aboveTile.dataset.row)
+            } else {
+                tileStatusSetup(aboveTile, "number")
+                aboveTile.textContent = aboveTile.dataset.valueNumber
+            }
+        }
+    })
 }
 
 
