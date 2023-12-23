@@ -5,6 +5,7 @@ let subtextDOM = document.querySelector(".subtext")
 // My variables
 let tileValue = ["mine", "number"]
 let gridSize = 10
+let mineNumber = gridSize
 let lost = false
 
 // Hard code the value of board size
@@ -18,6 +19,8 @@ document.documentElement.style.setProperty("--size", gridSize)
 boardSetUp()
 
 tileStatusSetup([...document.querySelectorAll(".board div")], "hidden")
+
+setupTileMineValue(mineNumber)
 
 setupTileNumberValue()
 
@@ -33,7 +36,7 @@ function boardSetUp() {
             tile.dataset.col = col + 1
             tile.dataset.row = row + 1
             // Add value to tiles 
-            tile.dataset.value = tileValue[Math.floor(Math.random() * tileValue.length)]
+            tile.dataset.value = "number"
             // Right Click Event
             tile.addEventListener("contextmenu" , e => {
                 tileMarkedYellow(e)
@@ -111,6 +114,22 @@ function processNumberTile(tile) {
         tile.textContent = tile.dataset.valueNumber
     } else {
         console.log("not having number")
+    }
+}
+
+
+
+
+// Function: choose 10 random tile for mines
+function setupTileMineValue(mineNumber) {
+    for(let i = 0; i < mineNumber; i++) {
+        let randomCol = Math.floor(Math.random() * (mineNumber - 1 + 1)) + 1
+        let randomRow = Math.floor(Math.random() * (mineNumber - 1 + 1)) + 1
+        document.querySelectorAll(".board div").forEach(tile => {
+            if(tile.dataset.col == randomCol && tile.dataset.row == randomRow) {
+                tile.dataset.value = "mine"
+            }
+        })
     }
 }
 
