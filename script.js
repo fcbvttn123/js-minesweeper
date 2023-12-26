@@ -127,15 +127,21 @@ function emptySpaceExpansion(col, row) {
     row = parseInt(row)
     // Get tile
     let tile = [...document.querySelectorAll(".board div")].find(e => e.dataset.col == col && e.dataset.row == row)
-    // Reveal Tile
-    tileStatusSetup(tile, "number")
-    if(tile.dataset.valueNumber != 0) {
-        tile.textContent = tile.dataset.valueNumber
-    } 
-    // Check if tile is empty or not 
-    if(tile.dataset.valueNumber == 0) {
-        emptySpaceExpansion(col, row-1)
-    } 
+    // Make sure the tile is in the board
+    if(tile) {
+        // Reveal Tile
+        tileStatusSetup(tile, "number")
+        if(tile.dataset.valueNumber != 0) {
+            tile.textContent = tile.dataset.valueNumber
+        } 
+        // Check if tile is empty or not 
+        if(tile.dataset.valueNumber == 0) {
+            emptySpaceExpansion(col, row-1)
+            emptySpaceExpansion(col-1, row)
+        } 
+    } else {
+        return
+    }
 }
 
 
