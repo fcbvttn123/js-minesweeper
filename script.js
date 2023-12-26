@@ -47,11 +47,26 @@ function boardSetUp() {
                     return 
                 } else {
                     checkTileValue(e.target)
+                    checkWinningCondition()
                 }
             })
             // Append tile to the board
             boardDOM.appendChild(tile)
         }
+    }
+}
+
+
+
+
+// Function: check if the player won 
+function checkWinningCondition() {
+    let allNumberStatusTiles = [...document.querySelectorAll(".board div")].filter(tile => tile.dataset.valueNumber)
+    if(!allNumberStatusTiles.find(tile => tile.dataset.status == "hidden")) {
+        subtextDOM.innerText = "You won !!!"
+        document.querySelectorAll(".board div").forEach(tile => {
+            tile.dataset.value == tileValue[0] && tileStatusSetup(tile, "mine")
+        })
     }
 }
 
