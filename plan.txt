@@ -28,10 +28,20 @@
 
 + Empty Space Expansion 
 
-    + Get tile 
+    + func(col, row)
 
-    + Get adjacent tiles
+        + Reveal tile
 
-    + Loop through adjacent tiles
+        + Check if tile is empty or not 
 
-        + if the tile is empty --> run again
+        + If tile is empty 
+        
+            --> func(col, row-1)
+
+        + Else 
+
+            --> Add number to tile
+
+            --> Move to another direction
+
+        + Next 

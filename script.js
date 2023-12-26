@@ -109,8 +109,12 @@ function processMineTile() {
 
 // Function: process tile with number status 
 function processNumberTile(tile) {
-    tileStatusSetup(tile, "number")
-    parseInt(tile.dataset.valueNumber) > 0 ? tile.textContent = tile.dataset.valueNumber : emptySpaceExpansion(tile.dataset.col, tile.dataset.row)
+    if(parseInt(tile.dataset.valueNumber) > 0) {
+        tileStatusSetup(tile, "number")
+        tile.textContent = tile.dataset.valueNumber
+    } else {
+        emptySpaceExpansion(tile.dataset.col, tile.dataset.row)
+    }
 }
 
 
@@ -121,18 +125,17 @@ function emptySpaceExpansion(col, row) {
     // Convert col and row to number
     col = parseInt(col)
     row = parseInt(row)
-    // Above
-    document.querySelectorAll(".board div").forEach(aboveTile => {
-        if(aboveTile.dataset.col == col && aboveTile.dataset.row == row-1) {
-            if(aboveTile.dataset.valueNumber == 0) {
-                tileStatusSetup(aboveTile, "number")
-                emptySpaceExpansion(aboveTile.dataset.col, aboveTile.dataset.row)
-            } else {
-                tileStatusSetup(aboveTile, "number")
-                aboveTile.textContent = aboveTile.dataset.valueNumber
-            }
-        }
-    })
+    // Get tile
+    let tile = [...document.querySelectorAll(".board div")].find(e => e.dataset.col == col && e.dataset.row == row)
+    // Reveal Tile
+    tileStatusSetup(tile, "number")
+    if(tile.dataset.valueNumber != 0) {
+        tile.textContent = tile.dataset.valueNumber
+    } 
+    // Check if tile is empty or not 
+    if(tile.dataset.valueNumber == 0) {
+        emptySpaceExpansion(col, row-1)
+    } 
 }
 
 
