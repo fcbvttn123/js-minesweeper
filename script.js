@@ -138,24 +138,32 @@ function processNumberTile(tile) {
 // Function: show all adjacent tiles when user clicked the tile without any mines surrounding it  
 function emptySpaceExpansion(col, row) {
     // Convert col and row to number
-    col = parseInt(col)
-    row = parseInt(row)
-    // Get tile
-    let tile = [...document.querySelectorAll(".board div")].find(e => e.dataset.col == col && e.dataset.row == row)
+    col = parseInt(col);
+    row = parseInt(row);
+    
+    // Get the current tile
+    let tile = document.querySelector(`.board div[data-col="${col}"][data-row="${row}"]`);
+
     // Make sure the tile is in the board
-    if(tile) {
+    if (tile) {
         // Reveal Tile
-        tileStatusSetup(tile, "number")
+        tileStatusSetup(tile, "number");
         if(tile.dataset.valueNumber != 0) {
             tile.textContent = tile.dataset.valueNumber
-        } 
+        }
+
         // Check if tile is empty or not 
-        if(tile.dataset.valueNumber == 0) {
-            emptySpaceExpansion(col, row-1)
-            emptySpaceExpansion(col-1, row)
-        } 
-    } else {
-        return
+        if (tile.dataset.valueNumber == 0) {
+            // Get adjacent tiles
+            let adjacentTiles = getAdjacentTiles(col, row);
+
+            // Recursively call emptySpaceExpansion for each adjacent tile
+            adjacentTiles.forEach(adjacentTile => {
+                if(adjacentTile.dataset.status == "hidden") {
+                    emptySpaceExpansion(adjacentTile.dataset.col, adjacentTile.dataset.row);
+                }
+            });
+        }
     }
 }
 
