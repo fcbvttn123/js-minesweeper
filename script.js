@@ -16,6 +16,8 @@ document.documentElement.style.setProperty("--size", gridSize)
 
 // App Flow
 
+subtextDOM.innerText = `Mines Left: ${mineNumber}`
+
 boardSetUp()
 
 tileStatusSetup([...document.querySelectorAll(".board div")], "hidden")
@@ -93,6 +95,9 @@ function tileStatusSetup(tile, status) {
 function tileMarkedYellow(e) {
     e.preventDefault()
     e.target.dataset.status == "marked" ? tileStatusSetup(e.target, "hidden") : tileStatusSetup(e.target, "marked")
+
+    let markedTiles = [...document.querySelectorAll(".board div")].filter(tile => tile.dataset.status == "marked")
+    subtextDOM.textContent = `Mines Left: ${mineNumber - markedTiles.length}`
 }
 
 
