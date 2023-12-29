@@ -177,15 +177,17 @@ function emptySpaceExpansion(col, row) {
 
 // Function: choose 10 random tile for mines
 function setupTileMineValue(mineNumber) {
-    for(let i = 0; i < mineNumber; i++) {
+    let mineArr = []
+    while(mineArr.length < mineNumber) {
         let randomCol = Math.floor(Math.random() * (mineNumber - 1 + 1)) + 1
         let randomRow = Math.floor(Math.random() * (mineNumber - 1 + 1)) + 1
-        document.querySelectorAll(".board div").forEach(tile => {
-            if(tile.dataset.col == randomCol && tile.dataset.row == randomRow) {
-                tile.dataset.value = "mine"
-            }
-        })
+
+        let exist = mineArr.some(obj => obj.col == randomCol && obj.row == randomRow)
+        !exist && mineArr.push({col: randomCol, row: randomRow})
     }
+    mineArr.forEach(obj => {
+        document.querySelector(`.board div[data-col="${obj.col}"][data-row="${obj.row}"]`).dataset.value = "mine"
+    })
 }
 
 
